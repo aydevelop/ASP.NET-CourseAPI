@@ -35,5 +35,18 @@ namespace CourseAPI.Controllers
 
             return Ok(res);
         }
+
+        [HttpGet("{courseId}")]
+        public IActionResult GetCourseForAuthor(Guid authorId, Guid courseId)
+        {
+            var course = _courseLibraryRepository.GetCourse(authorId, courseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            var res = _mapper.Map<CourseDto>(course);
+            return Ok(res);
+        }
     }
 }
