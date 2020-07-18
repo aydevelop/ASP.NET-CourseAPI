@@ -39,6 +39,8 @@ namespace CourseAPI.Controllers
         [HttpGet("{courseId}")]
         public IActionResult GetCourseForAuthor(Guid authorId, Guid courseId)
         {
+            throw new Exception("123234");
+
             var course = _courseLibraryRepository.GetCourse(authorId, courseId);
             if (course == null)
             {
