@@ -119,7 +119,15 @@ namespace CourseLibrary.API.Services
         {
             return _context.Authors.ToList<Author>();
         }
-         
+
+        public IEnumerable<Author> GetAuthors(string mainCategory)
+        {
+            var query = _context.Authors as IQueryable<Author>;
+            query = query.Where(q => q.MainCategory == mainCategory);
+
+            return query.ToList<Author>();
+        }
+
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
         {
             if (authorIds == null)
