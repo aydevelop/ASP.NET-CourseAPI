@@ -21,7 +21,10 @@ namespace CourseLibrary.API
 		
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(setup =>
+            {
+                setup.ReturnHttpNotAcceptable = true;
+            });
              
             services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
