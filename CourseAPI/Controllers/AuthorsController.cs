@@ -24,9 +24,15 @@ namespace CourseAPI.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetAuthors()
+        public IActionResult GetAuthors(string mainCategory)
         {
             var authorsDb = _courseLibraryRepository.GetAuthors();
+
+            if (!String.IsNullOrWhiteSpace(mainCategory))
+            {
+                authorsDb = authorsDb.Where(q => q.MainCategory == mainCategory);
+            }
+
             var res = _mapper.Map<IEnumerable<AuthorDto>>(authorsDb);
             return Ok(res);
         }
