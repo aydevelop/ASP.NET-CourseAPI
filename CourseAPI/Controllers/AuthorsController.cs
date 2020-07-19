@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CourseAPI.Helpers;
 using CourseAPI.Models;
+using CourseAPI.ResourceParameters;
 using CourseLibrary.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,12 +25,12 @@ namespace CourseAPI.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetAuthors(string mainCategory, string searchQuery)
+        public IActionResult GetAuthors([FromQuery] AuthorsResourceParameters authorsResourceParameters)
         {
             var authorsDb = _courseLibraryRepository.GetAuthors();
-            if (!String.IsNullOrWhiteSpace(mainCategory))
+            if (!String.IsNullOrWhiteSpace(authorsResourceParameters.MainCategory))
             {
-                authorsDb = _courseLibraryRepository.GetAuthors(mainCategory);
+                authorsDb = _courseLibraryRepository.GetAuthors(authorsResourceParameters.MainCategory);
             }
 
             var res = _mapper.Map<IEnumerable<AuthorDto>>(authorsDb);
