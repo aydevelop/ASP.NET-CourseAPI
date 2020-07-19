@@ -14,17 +14,16 @@ namespace CourseAPI.Profiles
         public AuthorsProfile()
         {
             CreateMap<Author, AuthorDto>()
-                
                 .ForMember(
                     e1 => e1.Name,
                     e2 => e2.MapFrom(src => $"{src.FirstName} {src.LastName}")
                 )
-
                 .ForMember(
                     e1 => e1.Age,
                     e2 => e2.MapFrom(src => $"{src.DateOfBirth.GetAge()}")
                 );
 
+                CreateMap<Models.AuthorForCreationDto, Author>();
         }
     }
 }
