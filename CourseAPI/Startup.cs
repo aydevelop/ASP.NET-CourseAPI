@@ -27,7 +27,7 @@ namespace CourseLibrary.API
             services.AddControllers(setup =>
             {
                 setup.ReturnHttpNotAcceptable = true;
-            });
+            }).AddXmlDataContractSerializerFormatters();
              
             services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -55,8 +55,6 @@ namespace CourseAPI.Controllers
             var authorCollectionToReturn = _mapper.Map<IEnumerable<AuthorDto>>(authorEntities);
             var idsAsString = string.Join(",", authorCollectionToReturn.Select(a => a.Id));
             return CreatedAtRoute("GetAuthorCollection", new { ids = idsAsString }, authorCollectionToReturn);
-
-            return Ok();
         }
     }
 }
