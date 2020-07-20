@@ -67,5 +67,17 @@ namespace CourseAPI.Controllers
             return CreatedAtRoute("GetCourseForAuthor",
                 new { authorId = authorId, courseId = courseToReturn.Id }, courseToReturn);
         }
+        
+        [HttpPut("{courseId}")]
+        public IActionResult UpdateCourseForAuthor(Guid authorId,
+            Guid courseId,
+            CourseForManipulationDto course)
+        {
+            var courseForAuthorFromRepo = _courseLibraryRepository.GetCourse(authorId, courseId);
+            _mapper.Map(course, courseForAuthorFromRepo);
+            //_courseLibraryRepository.UpdateCourse(courseForAuthorFromRepo);
+            _courseLibraryRepository.Save();
+            return Ok(courseForAuthorFromRepo);
+        }
     }
 }
