@@ -74,10 +74,30 @@ namespace CourseAPI.Controllers
             CourseForManipulationDto course)
         {
             var courseForAuthorFromRepo = _courseLibraryRepository.GetCourse(authorId, courseId);
+            if(courseForAuthorFromRepo == null)
+            {
+                return NotFound();
+            }
+
             _mapper.Map(course, courseForAuthorFromRepo);
             //_courseLibraryRepository.UpdateCourse(courseForAuthorFromRepo);
             _courseLibraryRepository.Save();
             return Ok(courseForAuthorFromRepo);
+        }
+
+        [HttpDelete("{courseId}")]
+        public ActionResult DeleteCourseForAuthor(Guid authorId, Guid courseId)
+        {
+            var courseForAuthorFromRepo = _courseLibraryRepository.GetCourse(authorId, courseId);
+            if (courseForAuthorFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _courseLibraryRepository.DeleteCourse(courseForAuthorFromRepo);
+            _courseLibraryRepository.Save();
+
+            return NoContent();
         }
     }
 }
